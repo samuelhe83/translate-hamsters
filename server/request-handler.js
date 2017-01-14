@@ -74,6 +74,7 @@ exports.createSentence = function(req, res) {
   var word = req.body.word;
   var text = req.body.sentence;
   var url = req.body.url;
+  var languageId;
   var wordId;
   var creatorId;
 
@@ -90,7 +91,7 @@ exports.createSentence = function(req, res) {
   }).then(function(user) {
     // console.log(user);
     creatorId = user.id;
-    new Sentence({text: text, url: url, word_id: wordId, creator_id: creatorId}).save();
+    new Sentence({text: text, url: url, word_id: wordId, creator_id: creatorId, language_id: req.session.nativeLanguage.id}).save();
     res.send('Created sentence');
   });
 };
